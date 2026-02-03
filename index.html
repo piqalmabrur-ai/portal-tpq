@@ -3,75 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal TPQ Al Mabrur Singosari</title>
+    <title>Portal Administrasi Terpadu - TPQ Al Mabrur Singosari</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f3f4f6;
+            background-color: #f0f2f5;
             font-family: 'Segoe UI', sans-serif;
         }
+        /* Mengubah warna aktif tab menjadi Biru Tua */
         .tab-active {
-            border-bottom: 3px solid #10b981; /* Hijau sesuai contoh */
-            color: #10b981;
+            border-bottom: 3px solid #1e40af; /* Blue-800 */
+            color: #1e40af;
             font-weight: bold;
         }
+        .transition-fast { transition: all 0.2s ease; }
     </style>
 </head>
 <body class="min-h-screen bg-gray-100">
 
     <div class="flex flex-col min-h-screen md:flex-row md:items-center md:justify-center md:p-4">
         
+        <!-- BAGIAN 1: FOTO & SAMBUTAN (Ahlan Wa Sahlan) -->
         <div class="w-full h-64 md:h-[600px] md:w-1/2 md:rounded-l-3xl overflow-hidden relative shadow-xl">
-            <img src="gedung.jpg" class="w-full h-full object-cover" alt="Gedung TPQ">
-            <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white p-6 text-center">
-                <h1 class="text-3xl md:text-5xl font-bold mb-2">Selamat Datang</h1>
-                <p class="text-sm md:text-lg opacity-90">Sistem Informasi Administrasi Sekolah Terpadu</p>
+            <!-- Background color biru tua sebagai fallback jika gambar loading -->
+            <div class="absolute inset-0 bg-blue-900"></div>
+            <img src="gedung.jpg" class="w-full h-full object-cover relative z-0" alt="Gedung TPQ">
+            
+            <!-- Overlay Biru Tua Transparan -->
+            <div class="absolute inset-0 bg-blue-900/40 flex flex-col justify-center items-center text-white p-6 text-center z-10">
+                <h1 class="text-3xl md:text-5xl font-bold mb-2 drop-shadow-lg">Ahlan Wa Sahlan</h1>
+                <p class="text-sm md:text-lg opacity-90 drop-shadow-md">Portal Administrasi Terpadu<br>TPQ Al Mabrur Singosari</p>
             </div>
         </div>
 
+        <!-- BAGIAN 2: FORM LOGIN -->
         <div class="w-full md:w-[450px] bg-white p-8 md:rounded-r-3xl shadow-xl flex-grow md:flex-grow-0">
             <div class="text-center mb-6">
-                <img src="logo.jpg" alt="Logo" class="mx-auto h-20 mb-2">
+                <img src="logo.jpg" alt="Logo" class="mx-auto h-20 mb-2 object-contain">
                 <h2 class="text-lg font-bold text-gray-800 uppercase">TPQ Al Mabrur Singosari</h2>
             </div>
 
-            <div class="flex border-b border-gray-100 mb-6 text-sm font-medium text-gray-400">
-                <button onclick="switchTab('siswa')" id="btn-siswa" class="tab-active flex-1 py-3">Siswa</button>
-                <button onclick="switchTab('guru')" id="btn-guru" class="flex-1 py-3">Guru</button>
-                <button onclick="switchTab('admin')" id="btn-admin" class="flex-1 py-3">Admin</button>
+            <!-- Tab Menu -->
+            <div class="flex border-b border-gray-200 mb-6 text-sm font-medium text-gray-400">
+                <button onclick="switchTab('santri')" id="btn-santri" class="tab-active flex-1 py-3 transition-fast focus:outline-none hover:text-blue-600">Santri</button>
+                <button onclick="switchTab('guru')" id="btn-guru" class="flex-1 py-3 transition-fast focus:outline-none hover:text-blue-600">Guru</button>
+                <button onclick="switchTab('admin')" id="btn-admin" class="flex-1 py-3 transition-fast focus:outline-none hover:text-blue-600">Admin</button>
             </div>
 
-            <form>
+            <form onsubmit="event.preventDefault(); alert('Tombol Login Berhasil Diklik');">
                 <div class="mb-4">
-                    <label id="labelUser" class="block text-sm font-semibold text-gray-600 mb-2">Masuk sebagai Siswa</label>
+                    <label id="labelUser" class="block text-sm font-semibold text-gray-700 mb-2">Masuk sebagai Santri</label>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                            <i class="fas fa-user-graduate"></i>
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">
+                            <i class="fas fa-user-circle"></i>
                         </span>
-                        <input type="text" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none" placeholder="Ketik dan pilih nama Anda">
+                        <!-- Fokus Ring diganti jadi Biru -->
+                        <input type="text" id="userInput" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-gray-50 focus:bg-white transition-fast" placeholder="Ketik dan pilih nama Anda">
                     </div>
                 </div>
 
                 <div class="mb-6">
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">
                             <i class="fas fa-lock"></i>
                         </span>
-                        <input type="password" id="passInput" class="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none" placeholder="Password">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer text-gray-400" onclick="togglePass()">
+                        <!-- Fokus Ring diganti jadi Biru -->
+                        <input type="password" id="passInput" class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none bg-gray-50 focus:bg-white transition-fast" placeholder="Password">
+                        
+                        <!-- Tombol Mata (Hover Biru) -->
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer text-gray-400 hover:text-blue-700" onclick="togglePass()">
                             <i class="fas fa-eye" id="eye"></i>
                         </span>
                     </div>
                 </div>
 
-                <button class="w-full bg-[#10b981] hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center">
-                    <i class="fas fa-sign-in-alt mr-2"></i> Login <span id="btnText" class="ml-1">Siswa</span>
+                <!-- Tombol Login (Biru Tua) -->
+                <button class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center transform active:scale-95">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Login <span id="btnText" class="ml-1">Santri</span>
                 </button>
 
                 <div class="mt-8 text-center">
-                    <p class="text-xs text-green-600 font-medium cursor-pointer">
-                        <i class="fas fa-unlock-alt mr-1"></i> Lupa password? Atur ulang dengan verifikasi tanggal lahir
+                    <p class="text-xs text-blue-600 font-medium cursor-pointer hover:underline">
+                        <i class="fas fa-unlock-alt mr-1"></i> Lupa password? Hubungi Admin
                     </p>
                 </div>
             </form>
@@ -80,14 +94,30 @@
 
     <script>
         function switchTab(role) {
-            ['siswa', 'guru', 'admin'].forEach(r => {
-                document.getElementById('btn-' + r).classList.remove('tab-active');
+            ['santri', 'guru', 'admin'].forEach(r => {
+                const btn = document.getElementById('btn-' + r);
+                if (btn) {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('text-gray-400');
+                }
             });
-            document.getElementById('btn-' + role).classList.add('tab-active');
             
-            const labels = { 'siswa': 'Siswa', 'guru': 'Guru', 'admin': 'Admin' };
+            const activeBtn = document.getElementById('btn-' + role);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+                activeBtn.classList.remove('text-gray-400');
+            }
+            
+            const labels = { 'santri': 'Santri', 'guru': 'Guru', 'admin': 'Admin' };
             document.getElementById('labelUser').innerText = "Masuk sebagai " + labels[role];
             document.getElementById('btnText').innerText = labels[role];
+
+            const inputField = document.getElementById('userInput');
+            if (role === 'santri') {
+                inputField.placeholder = "Ketik dan pilih nama Anda";
+            } else {
+                inputField.placeholder = "Masukkan Username / ID";
+            }
         }
 
         function togglePass() {
@@ -96,9 +126,11 @@
             if (input.type === 'password') {
                 input.type = 'text';
                 icon.classList.replace('fa-eye', 'fa-eye-slash');
+                icon.classList.add('text-blue-600'); // Ikon mata aktif jadi biru
             } else {
                 input.type = 'password';
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
+                icon.classList.remove('text-blue-600');
             }
         }
     </script>
